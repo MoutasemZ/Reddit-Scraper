@@ -1,0 +1,49 @@
+/*
+ * Copyright (C) 2019  Moutasem Zakkar, www.linkedin.com/in/mzakkar
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/**
+ *
+ * @author Moutasem Zakkar, moutasem.zakkar@gmail.com  
+ */
+
+# This DB Schema is for Apache Cassandra DB
+
+# Create the Table Space
+CREATE KEYSPACE reddit_db
+WITH REPLICATION = {
+'class': 'SimpleStrategy', 'replication_factor': 1
+};
+
+#Create the submissions table 
+CREATE TABLE reddit_db.Submissions (
+    Author text,
+    Title text,
+    Post_Date timestamp,
+    Post_Id text,
+    Body text,
+    subreddit text,
+    subreddit_Id text,
+    score int,
+    total_comments int,
+
+    PRIMARY KEY (subreddit_Id, Author, Post_Id)
+);
+
+CREATE INDEX Ind_Author ON reddit_db.Submissions (Author);
+CREATE INDEX Ind_PostDate ON reddit_db.Submissions (Post_Date);
+
+
+
